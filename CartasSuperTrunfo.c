@@ -1,11 +1,8 @@
 #include <stdio.h>
-#include <string.h>
 
 // Estrutura para representar uma carta de cidade
 typedef struct {
     char codigo[4];        // Código da carta (ex: A01, B02)
-    char estado[20];       // Nome do estado
-    char cidade[20];       // Nome da cidade
     int populacao;         // População da cidade
     float area;            // Área em km²
     float pib;             // PIB em bilhões
@@ -22,50 +19,14 @@ void exibirCabecalho() {
 
 // Função para cadastrar uma carta
 void cadastrarCarta(Carta *carta, char letra_estado, int numero_cidade) {
-    // Definir estados brasileiros (A-H)
-    char estados[8][20] = {
-        "Acre",      // A
-        "Bahia",     // B
-        "Ceará",     // C
-        "Goiás",     // D
-        "Espírito",  // E (Espírito Santo)
-        "Minas",     // F (Minas Gerais)
-        "Paraná",    // G
-        "Roraima"    // H
-    };
-    
-    // Definir cidades para cada estado (4 cidades por estado)
-    char cidades[8][4][20] = {
-        // Acre (A)
-        {"Cruzeiro", "Feijó", "Sena", "Tarauacá"},
-        // Bahia (B)
-        {"Salvador", "Feira", "Vitória", "Camaçari"},
-        // Ceará (C)
-        {"Fortaleza", "Sobral", "Crato", "Maracanaú"},
-        // Goiás (D)
-        {"Goiânia", "Aparecida", "Anápolis", "Luziânia"},
-        // Espírito Santo (E)
-        {"Vitória", "Serra", "Cariacica", "Linhares"},
-        // Minas Gerais (F)
-        {"Contagem", "Uberlândia", "Juiz", "Betim"},
-        // Paraná (G)
-        {"Curitiba", "Londrina", "Maringá", "Ponta"},
-        // Roraima (H)
-        {"Boa", "Rorainópolis", "Caracaraí", "Alto"}
-    };
-    
-    // Gerar código da carta
-    sprintf(carta->codigo, "%c%02d", letra_estado, numero_cidade);
-    
-    // Definir estado e cidade automaticamente
-    int indice_estado = letra_estado - 'A';
-    strcpy(carta->estado, estados[indice_estado]);
-    strcpy(carta->cidade, cidades[indice_estado][numero_cidade - 1]);
+    // Gerar código da carta manualmente
+    carta->codigo[0] = letra_estado;
+    carta->codigo[1] = '0';
+    carta->codigo[2] = '0' + numero_cidade;
+    carta->codigo[3] = '\0';
     
     // Solicitar dados do usuário
     printf("=== CADASTRO DA CARTA %s ===\n", carta->codigo);
-    printf("Estado: %s\n", carta->estado);
-    printf("Cidade: %s\n\n", carta->cidade);
     
     printf("Digite a população: ");
     scanf("%d", &carta->populacao);
@@ -85,8 +46,6 @@ void cadastrarCarta(Carta *carta, char letra_estado, int numero_cidade) {
 // Função para exibir os dados de uma carta
 void exibirCarta(Carta carta) {
     printf("=== CARTA %s ===\n", carta.codigo);
-    printf("Estado: %s\n", carta.estado);
-    printf("Cidade: %s\n", carta.cidade);
     printf("População: %d habitantes\n", carta.populacao);
     printf("Área: %.2f km²\n", carta.area);
     printf("PIB: R$ %.2f bilhões\n", carta.pib);
