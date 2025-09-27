@@ -1,6 +1,8 @@
 #include <stdio.h>
 
-int main() {
+int main(){
+printf("Desafio Super Trunfo \n");
+printf("Novo commit\n");
     char estado1[20], estado2[20];
     char codigo1[20], codigo2[20];
     char cidade1[20], cidade2[20];
